@@ -7,6 +7,8 @@ interface Contest {
   end: Date;
   user_count: number;
   questions: Question[];
+  question_count: number;
+  registered: boolean;
 }
 
 export default Contest;

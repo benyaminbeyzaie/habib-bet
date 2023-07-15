@@ -8,7 +8,6 @@ import {
   getComingContests,
   getOnGoingContests,
 } from "@/lib/api";
-import Button from "../components/Button";
 import IncreaseCoin from "./components/IncreaseCoin";
 
 function Home() {
