@@ -1,14 +1,14 @@
 import { login, me, register } from "@/lib/api";
 import User from "@/lib/types/user";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { userAtom } from "./userAtom";
 
 const useUser = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(false);
   const savedUser = localStorage.getItem("user");
-  const [user, setUser] = useState<User | null>(
-    savedUser ? JSON.parse(savedUser) : null
-  );
+  const [user, setUser] = useRecoilState<User | null>(userAtom);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -36,7 +36,6 @@ const useUser = () => {
     setLoading(true);
     try {
       const user = await register(registerRequest);
-      console.log("register res: " + user);
       setUser(user);
     } catch (error) {
       setError(error);
@@ -45,7 +44,7 @@ const useUser = () => {
     }
   };
 
-  const profile = async () => {
+  const refetch = async () => {
     try {
       setLoading(true);
       const user = await me();
@@ -67,7 +66,7 @@ const useUser = () => {
   const data = {
     loginUser,
     registerUser,
-    profile,
+    refetch,
     loading,
     error,
     user,

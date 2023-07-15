@@ -20,7 +20,7 @@ export default function Register() {
     password: "",
   });
 
-  const { registerUser, loading, error, user, profile } = useUser();
+  const { registerUser, loading, error, user } = useUser();
 
   useEffect(() => {
     if (user) {

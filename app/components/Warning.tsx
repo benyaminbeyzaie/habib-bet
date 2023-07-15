@@ -4,7 +4,6 @@ interface Props {
 
 function Warning(props: Props) {
   const { error } = props;
-  console.log("error", error);
   return (
     <div
       className={

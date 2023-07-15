@@ -27,18 +27,15 @@ export const fetcher = async ({
 
   if (json) {
     const data = await res.json();
-    console.log("data", data);
     return data;
   }
 };
 
 export const register = (user: { username: string; password: string }) => {
-  console.log(user);
   return fetcher({ url: "/user/signup", method: "POST", body: user });
 };
 
 export const login = (user: { username: string; password: string }) => {
-  console.log("user", user);
   return fetcher({ url: "/user/login", method: "POST", body: user });
 };
 
@@ -46,6 +43,24 @@ export const me = () => {
   return fetcher({ url: "/user/me", method: "GET" });
 };
 
-export const ongoing = () => {
+export const getOnGoingContests = () => {
   return fetcher({ url: "/contest/ongoing", method: "GET" });
+};
+
+export const getComingContests = () => {
+  return fetcher({ url: "/contest/coming", method: "GET" });
+};
+
+export const getArchivedContests = () => {
+  return fetcher({ url: "/contest/archive", method: "GET" });
+};
+
+export const increaseCoin = (amount: number) => {
+  return fetcher({
+    url: "/user/increase-coins",
+    method: "POST",
+    body: {
+      amount: amount,
+    },
+  });
 };
