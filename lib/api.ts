@@ -45,6 +45,14 @@ export const me = () => {
   return fetcher({ url: "/user/me", method: "GET" });
 };
 
+export const getPublicOnGoingContests = () => {
+  return fetcher({ url: "/public/ongoing", method: "GET" });
+};
+
+export const getPublicComingContests = () => {
+  return fetcher({ url: "/public/coming", method: "GET" });
+};
+
 export const getOnGoingContests = () => {
   return fetcher({ url: "/contest/ongoing", method: "GET" });
 };
