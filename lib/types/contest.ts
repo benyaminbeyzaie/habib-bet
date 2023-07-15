@@ -1,5 +1,7 @@
 import Question from "./question";
 
+type ContestType = "ON_GOING" | "COMING" | "ARCHIVED";
+
 interface Contest {
   id: number;
   name: string;
@@ -12,3 +14,4 @@ interface Contest {
 }
 
 export default Contest;
+export { type ContestType };

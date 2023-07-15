@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
   title: "HabibBet",
@@ -12,7 +13,12 @@ export default function HomeLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="flex flex-col h-screen">
+          <Navbar />
+          <div className="h-full overflow-y-scroll">{children}</div>
+        </div>
+      </body>
     </html>
   );
 }

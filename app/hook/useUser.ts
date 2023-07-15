@@ -7,8 +7,12 @@ import { userAtom } from "./userAtom";
 const useUser = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(false);
-  const savedUser = localStorage.getItem("user");
   const [user, setUser] = useRecoilState<User | null>(userAtom);
+
+  useEffect(() => {
+    refetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -44,7 +48,7 @@ const useUser = () => {
     }
   };
 
-  const refetch = async () => {
+  const refetchUser = async () => {
     try {
       setLoading(true);
       const user = await me();
@@ -66,7 +70,7 @@ const useUser = () => {
   const data = {
     loginUser,
     registerUser,
-    refetch,
+    refetchUser,
     loading,
     error,
     user,

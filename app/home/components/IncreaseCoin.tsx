@@ -5,9 +5,10 @@ import React, { useState } from "react";
 
 function IncreaseCoin() {
   const [coinLoading, setCoinLoading] = useState<boolean>(false);
-  const { refetch, loading: userLoading } = useUser();
+  const { refetchUser, loading: userLoading } = useUser();
 
   const loading = coinLoading || userLoading;
+
   return (
     <div className="px-5 pt-5">
       <Button
@@ -17,7 +18,7 @@ function IncreaseCoin() {
           try {
             setCoinLoading(true);
             await increaseCoin(10);
-            refetch();
+            refetchUser();
           } catch (error) {
           } finally {
             setCoinLoading(false);

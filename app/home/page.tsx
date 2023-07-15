@@ -45,24 +45,31 @@ function Home() {
     getComingData();
     getArchivedData();
   }, []);
+
   return (
     <div className="w-full">
-      <Navbar />
+
       <IncreaseCoin />
       <ContestTable
+        contestType="ON_GOING"
         isLoading={!onGoingContests}
-        label="ONGOGING/"
+        label="ON GOING/"
         contests={onGoingContests}
+        reload={getOnGoingData}
       />
       <ContestTable
+        contestType="COMING"
         isLoading={!comingContests}
-        label="COMMING/"
+        label="COMING/"
         contests={comingContests}
+        reload={getComingData}
       />
       <ContestTable
+        contestType="ARCHIVED"
         isLoading={!archivedContests}
         label="ARCHIVED/"
         contests={archivedContests}
+        reload={getArchivedData}
       />
     </div>
   );

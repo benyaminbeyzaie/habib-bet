@@ -66,3 +66,21 @@ export const increaseCoin = (amount: number) => {
     },
   });
 };
+
+export const joinContest = (id: number) => {
+  return fetcher({ url: `/contest/${id}/register`, method: "POST" });
+};
+
+export const getContest = (id: number) => {
+  return fetcher({ url: `/contest/${id}`, method: "GET" });
+};
+
+export const submitAnswer = (id: number, option: "A" | "B") => {
+  return fetcher({
+    url: `/question/${id}`,
+    method: "POST",
+    body: {
+      option: option,
+    },
+  });
+};

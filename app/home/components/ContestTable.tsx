@@ -1,4 +1,4 @@
-import Contest from "@/lib/types/contest";
+import Contest, { ContestType } from "@/lib/types/contest";
 import React from "react";
 import ContestCard from "./ContestCard";
 import ContestCardSkeleton from "./ContestCard/ContestCardSkeleton";
@@ -6,11 +6,13 @@ import ContestCardSkeleton from "./ContestCard/ContestCardSkeleton";
 interface Props {
   label: string;
   contests: Contest[] | null;
+  contestType: ContestType;
   isLoading?: boolean;
+  reload: () => void;
 }
 
 function ContestTable(props: Props) {
-  const { contests, isLoading, label } = props;
+  const { contests, isLoading, label, contestType, reload } = props;
 
   return (
     <div className="px-5 md:px-12 lg:px-20 pt-5">
@@ -23,7 +25,7 @@ function ContestTable(props: Props) {
         </>
       )}
       {contests?.map((contest) => (
-        <ContestCard key={contest.id} contest={contest} />
+        <ContestCard type={contestType} key={contest.id} contest={contest} reload={reload} />
       ))}
     </div>
   );
