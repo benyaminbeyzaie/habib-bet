@@ -2,8 +2,8 @@ interface Question {
   id: number;
   option_a: string;
   option_b: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   order: number;
   input: number;
   output: number;

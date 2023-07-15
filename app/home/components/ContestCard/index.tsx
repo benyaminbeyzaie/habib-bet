@@ -1,5 +1,4 @@
 import Button from "@/app/components/Button";
-import useUser from "@/app/hook/useUser";
 import { joinContest } from "@/lib/api";
 import { reoladIfEnded, stringifyInterval } from "@/lib/time";
 import Contest, { ContestType } from "@/lib/types/contest";
