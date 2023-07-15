@@ -20,11 +20,10 @@ export const fetcher = async ({
     },
   });
 
-  if ( 400 <= res.status && res.status < 500) {
-    // handle your errors
+  if (400 <= res.status && res.status < 500) {
     throw new Error((await res.json()).error);
   }
-  if (!res.ok){
+  if (!res.ok) {
     throw new Error("API Error");
   }
 
