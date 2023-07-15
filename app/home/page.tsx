@@ -9,6 +9,7 @@ import {
   getOnGoingContests,
 } from "@/lib/api";
 import IncreaseCoin from "./components/IncreaseCoin";
+import useUser from "../hook/useUser";
 
 function Home() {
   const [onGoingContests, setOnGoingContests] = useState<Contest[] | null>(
@@ -18,7 +19,13 @@ function Home() {
   const [archivedContests, setArchivedContests] = useState<Contest[] | null>(
     null
   );
-
+  var [date, setDate] = useState(new Date())
+  useEffect(() => {
+    var timer = setInterval(() => setDate(new Date()),1000)
+    return function cleanup(){
+      clearInterval(timer)
+    }
+  })
   const getOnGoingData = async () => {
     try {
       const data = await getOnGoingContests();
@@ -40,10 +47,16 @@ function Home() {
     } catch (error) {}
   };
 
-  useEffect(() => {
+  const fetchData = () => {
     getOnGoingData();
     getComingData();
     getArchivedData();
+  }
+
+  const { refetchUser } = useUser()
+
+  useEffect(() => {
+    fetchData()
   }, []);
 
   return (
@@ -55,21 +68,27 @@ function Home() {
         isLoading={!onGoingContests}
         label="ON GOING/"
         contests={onGoingContests}
-        reload={getOnGoingData}
+        date={date}
+        reload={fetchData}
+        refetchUser={refetchUser}
       />
       <ContestTable
         contestType="COMING"
         isLoading={!comingContests}
         label="COMING/"
         contests={comingContests}
-        reload={getComingData}
+        date={date}
+        reload={fetchData}
+        refetchUser={refetchUser}
       />
       <ContestTable
         contestType="ARCHIVED"
         isLoading={!archivedContests}
         label="ARCHIVED/"
         contests={archivedContests}
-        reload={getArchivedData}
+        date={date}
+        reload={fetchData}
+        refetchUser={refetchUser}
       />
     </div>
   );

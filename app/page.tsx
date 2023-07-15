@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import landing from "@/public/landing.png";
 import Link from "next/link";
+import useUser from "./hook/useUser";
 
 export default function Home() {
+  const { user } = useUser()
   return (
     <div className="flex min-h-screen bg-white">
       <div className="flex flex-col justify-center flex-1 px-8 py-8 md:px-12 lg:flex-none lg:px-24">
@@ -22,7 +25,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center justify-center max-w-lg gap-3 mx-auto mt-10 lg:flex-row lg:justify-start">
               <Link
-                href="/login"
+                href={!user ? "/login": "/home"}
                 className="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black"
               >
                 Get started

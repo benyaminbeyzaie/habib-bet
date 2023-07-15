@@ -1,20 +1,22 @@
 import Button from "@/app/components/Button";
 import useUser from "@/app/hook/useUser";
 import { joinContest } from "@/lib/api";
+import { reoladIfEnded, stringifyInterval } from "@/lib/time";
 import Contest, { ContestType } from "@/lib/types/contest";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   contest: Contest | null;
   type: ContestType;
+  date: Date;
   reload: () => void;
+  refetchUser: () => void;
 }
 
 function ContestCard(props: Props) {
-  const { contest, type, reload } = props;
+  const { contest, type, date, reload, refetchUser } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const { refetchUser } = useUser();
   const router = useRouter();
 
   const join = async () => {
@@ -29,6 +31,14 @@ function ContestCard(props: Props) {
     }
   };
 
+  useEffect(() => {
+    if (type === "COMING") {
+      reoladIfEnded(date, new Date(contest?.start ?? ""), reload)
+    } else if (type == "ON_GOING") {
+      reoladIfEnded(date, new Date(contest?.end ?? ""), reload)
+    }
+  }, [date])
+
   return (
     <section>
       <div className="relative items-center w-full py-3 mx-auto">
@@ -40,7 +50,13 @@ function ContestCard(props: Props) {
             <p className="text-base text-gray-500">
               {"User Count/ " + (contest?.user_count ?? "-")}
             </p>
-
+            {type === "COMING" ? (<p className="text-base text-gray-500">
+              {"Time To Start/ " + (stringifyInterval(date, new Date(contest?.start ?? "")))}
+            </p>) : type == "ON_GOING" ? (<p className="text-base text-gray-500">
+              {"Time To End/ " + (stringifyInterval(date, new Date(contest?.end ?? "")))}
+            </p>) : (<p className="text-base text-gray-500">
+              {"Ended/ " + (stringifyInterval(new Date(contest?.end ?? ""), date))}
+            </p>)}
             {type === "COMING" && !contest?.registered && (
               <Button
                 label={loading ? "Loading..." : "/ Join"}

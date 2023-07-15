@@ -8,11 +8,13 @@ interface Props {
   contests: Contest[] | null;
   contestType: ContestType;
   isLoading?: boolean;
+  date: Date;
   reload: () => void;
+  refetchUser: () => void;
 }
 
 function ContestTable(props: Props) {
-  const { contests, isLoading, label, contestType, reload } = props;
+  const { contests, isLoading, label, contestType, date, reload, refetchUser } = props;
 
   return (
     <div className="px-5 md:px-12 lg:px-20 pt-5">
@@ -25,7 +27,7 @@ function ContestTable(props: Props) {
         </>
       )}
       {contests?.map((contest) => (
-        <ContestCard type={contestType} key={contest.id} contest={contest} reload={reload} />
+        <ContestCard type={contestType} key={contest.id} contest={contest} date={date} reload={reload} refetchUser={refetchUser} />
       ))}
     </div>
   );

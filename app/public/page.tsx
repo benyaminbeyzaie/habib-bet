@@ -54,7 +54,7 @@ function Public() {
       />
       <ContestTable
         isLoading={!comingContests}
-        label="COMMING/"
+        label="COMING/"
         contests={comingContests}
         date={date}
         reload={fetchData}

@@ -11,10 +11,10 @@ function Navbar() {
   const { logout, loading, user } = useUser();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       router.push("/");
     }
-  }, [router, user]);
+  }, [router, user, loading]);
   return (
     <div className="w-full mx-auto bg-white border-b 2xl:max-w-7xl">
       <div className="relative flex w-full p-5 mx-auto bg-white md:items-center md:justify-between flex-row md:px-6 lg:px-8">

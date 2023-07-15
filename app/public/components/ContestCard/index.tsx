@@ -12,10 +12,10 @@ interface Props {
 function ContestCard(props: Props) {
   const { contest, label, date, reload } = props;
   useEffect(() => {
-    if (label === "COMMING/") {
-      reoladIfEnded(date,new Date(contest?.start ?? ""), reload)
+    if (label === "COMING/") {
+      reoladIfEnded(date, new Date(contest?.start ?? ""), reload)
     } else {
-      reoladIfEnded(date,new Date(contest?.end ?? ""), reload)
+      reoladIfEnded(date, new Date(contest?.end ?? ""), reload)
     }
   }, [date])
   return (
@@ -29,7 +29,7 @@ function ContestCard(props: Props) {
             <p className="text-base text-gray-500">
               {"User Count/ " + (contest?.user_count ?? "-")}
             </p>
-            {label === "COMMING/" ? (<p className="text-base text-gray-500">
+            {label === "COMING/" ? (<p className="text-base text-gray-500">
               {"Time To Start/ " + (stringifyInterval(date, new Date(contest?.start ?? "")))}
             </p>) : (<p className="text-base text-gray-500">
               {"Time To End/ " + (stringifyInterval(date, new Date(contest?.end ?? "")))}
