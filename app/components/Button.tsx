@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 interface Props {
@@ -13,10 +14,11 @@ function Button(props: Props) {
     <button
       disabled={disabled}
       onClick={onClick}
-      className={
-        "inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-black rounded-full group focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 hover:bg-gray-700 active:bg-gray-800 active:text-white focus-visible:outline-black " +
-        className
-      }
+      className={classNames(
+        "inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-black rounded-full group focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2  active:bg-gray-800 active:text-white focus-visible:outline-black ",
+        className,
+        { "hover:bg-gray-700": !disabled }
+      )}
     >
       {label}
     </button>

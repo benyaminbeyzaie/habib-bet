@@ -1,6 +1,7 @@
 export const stringifyInterval = (start: Date, end: Date) => {
   const _MS_PER_SEC = 1000;
   var diff = Math.floor((end.getTime() - start.getTime()) / _MS_PER_SEC);
+  if (diff <= 0) return "Ended!";
   if (diff < 60) {
     return diff + " seconds";
   } else if (diff < 60 * 60) {

@@ -19,6 +19,13 @@ function ContestPage(props: { params: Props }) {
   const activeQuestion =
     contest && contest.questions[contest.questions.length - 1];
 
+  const isLoosed =
+    (contest?.questions.length ?? 2) > 1 &&
+    (contest?.questions?.filter((q) => {
+      if (q.id === activeQuestion?.id) return true;
+      return q.answer !== q.user_answer;
+    }).length ?? 1) > 0;
+
   const getContestAsync = async () => {
     try {
       setLoading(true);
@@ -54,6 +61,7 @@ function ContestPage(props: { params: Props }) {
         reload={getContestAsync}
         isFetching={loading}
         isHistory={false}
+        isLoosed={isLoosed}
       />
       <div className="h-1 w-full bg-gray-100 rounded-lg my-5" />
       <p>History</p>
@@ -64,6 +72,7 @@ function ContestPage(props: { params: Props }) {
           reload={getContestAsync}
           isFetching={false}
           isHistory={true}
+          isLoosed={false}
         />
       ))}
     </div>

@@ -9,6 +9,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     pathname.startsWith("/static") ||
     pathname.startsWith("/register") ||
     pathname.startsWith("/login") ||
+    pathname.startsWith("/public") ||
     pathname === "/" ||
     PUBLIC_FILE.test(pathname)
   ) {
