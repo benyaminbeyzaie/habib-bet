@@ -1,6 +1,6 @@
 import Button from "@/app/components/Button";
 import useUser from "@/app/hook/useUser";
-import { joinContest } from "@/lib/api";
+import { getReward, joinContest } from "@/lib/api";
 import Contest, { ContestType } from "@/lib/types/contest";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -16,6 +16,22 @@ function ContestCard(props: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const { refetchUser } = useUser();
   const router = useRouter();
+
+  const isEligibleForReward = contest?.questions?.every(
+    (q) => q.answer === q.user_answer
+  );
+
+  const getRewardAsync = async () => {
+    if (!contest) return;
+    try {
+      setLoading(true);
+      await getReward(contest?.id);
+      reload();
+      refetchUser();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const join = async () => {
     if (!contest) return;
@@ -59,6 +75,20 @@ function ContestCard(props: Props) {
                 disabled={loading}
               />
             )}
+            {type === "ARCHIVED" &&
+              !contest?.reward_paid &&
+              isEligibleForReward && (
+                <Button
+                  label={loading ? "LOADING..." : "/ Get Reward"}
+                  onClick={() => {
+                    getRewardAsync();
+                  }}
+                  disabled={loading}
+                />
+              )}
+            {type === "ARCHIVED" &&
+              contest?.reward_paid &&
+              isEligibleForReward && <span>/ Reward has been claimed!</span>}
           </div>
         </div>
       </div>

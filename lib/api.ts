@@ -75,6 +75,10 @@ export const getContest = (id: number) => {
   return fetcher({ url: `/contest/${id}`, method: "GET" });
 };
 
+export const getReward = (id: number) => {
+  return fetcher({ url: `/contest/${id}/reward`, method: "POST" });
+};
+
 export const submitAnswer = (id: number, option: "A" | "B") => {
   return fetcher({
     url: `/question/${id}`,

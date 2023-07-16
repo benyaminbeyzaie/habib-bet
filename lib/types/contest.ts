@@ -11,6 +11,7 @@ interface Contest {
   questions: Question[];
   question_count: number;
   registered: boolean;
+  reward_paid: boolean;
 }
 
 export default Contest;
