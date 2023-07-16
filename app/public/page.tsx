@@ -4,21 +4,15 @@ import Navbar from "./components/Navbar";
 import ContestTable from "./components/ContestTable";
 import Contest from "@/lib/types/contest";
 import {
-  getArchivedContests,
-  getComingContests,
-  getOnGoingContests,
+  getPublicComingContests,
+  getPublicOnGoingContests,
 } from "@/lib/api";
-import IncreaseCoin from "./components/IncreaseCoin";
-import useUser from "../hook/useUser";
 
-function Home() {
+function Public() {
   const [onGoingContests, setOnGoingContests] = useState<Contest[] | null>(
     null
   );
   const [comingContests, setComingContests] = useState<Contest[] | null>(null);
-  const [archivedContests, setArchivedContests] = useState<Contest[] | null>(
-    null
-  );
   var [date, setDate] = useState(new Date())
   useEffect(() => {
     var timer = setInterval(() => setDate(new Date()),1000)
@@ -28,70 +22,45 @@ function Home() {
   })
   const getOnGoingData = async () => {
     try {
-      const data = await getOnGoingContests();
+      const data = await getPublicOnGoingContests();
       setOnGoingContests(data.data);
     } catch (error) {}
   };
 
   const getComingData = async () => {
     try {
-      const data = await getComingContests();
+      const data = await getPublicComingContests();
       setComingContests(data.data);
     } catch (error) {}
   };
 
-  const getArchivedData = async () => {
-    try {
-      const data = await getArchivedContests();
-      setArchivedContests(data.data);
-    } catch (error) {}
-  };
-
   const fetchData = () => {
-    getOnGoingData();
-    getComingData();
-    getArchivedData();
+    getOnGoingData()
+    getComingData()
   }
-
-  const { refetchUser } = useUser()
 
   useEffect(() => {
     fetchData()
   }, []);
-
   return (
     <div className="w-full">
-
-      <IncreaseCoin />
+      <Navbar />
       <ContestTable
-        contestType="ON_GOING"
         isLoading={!onGoingContests}
         label="ON GOING/"
         contests={onGoingContests}
         date={date}
         reload={fetchData}
-        refetchUser={refetchUser}
       />
       <ContestTable
-        contestType="COMING"
         isLoading={!comingContests}
         label="COMING/"
         contests={comingContests}
         date={date}
         reload={fetchData}
-        refetchUser={refetchUser}
-      />
-      <ContestTable
-        contestType="ARCHIVED"
-        isLoading={!archivedContests}
-        label="ARCHIVED/"
-        contests={archivedContests}
-        date={date}
-        reload={fetchData}
-        refetchUser={refetchUser}
       />
     </div>
   );
 }
 
-export default Home;
+export default Public;

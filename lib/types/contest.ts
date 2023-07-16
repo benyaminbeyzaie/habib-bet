@@ -5,8 +5,8 @@ type ContestType = "ON_GOING" | "COMING" | "ARCHIVED";
 interface Contest {
   id: number;
   name: string;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   user_count: number;
   questions: Question[];
   question_count: number;

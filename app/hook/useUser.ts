@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "./userAtom";
 
 const useUser = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(false);
   const [user, setUser] = useRecoilState<User | null>(userAtom);
 
