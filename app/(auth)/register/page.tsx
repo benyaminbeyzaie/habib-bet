@@ -35,7 +35,7 @@ export default function Register() {
 
   return (
     <div className="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4">
-      {createPortal(<Warning error={error} />, document.body)}
+      {createPortal(<Warning error={error} />, document?.body)}
       <div className="flex flex-col">
         <div>
           <h2 className="text-4xl text-black">Get started!</h2>
